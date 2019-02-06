@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<body>
+	<ui:composition>
+		<h:form styleClass=" w3-padding w3-card" enctype="multipart/form-data">
+			<h2 class="w3-xxlarge w3-text-theme">
+				<span class="fa fa-database"></span> Staff List
+			</h2>
+			<h:dataTable styleClass="w3-table-all" headerClass="w3-theme"
+				columnClasses="" value="#{staffByAdmin.stafflist}" var="stf">
+				<h:column>
+					<f:facet name="header">ID</f:facet>
+					#{stf.staffId}
+				</h:column>
+				<h:column>
+					<f:facet name="header">Name</f:facet>
+					#{stf.name}
+				</h:column>
+				<h:column>
+					<f:facet name="header">Department</f:facet>
+					#{stf.department}
+				</h:column>
+				<h:column>
+					<f:facet name="header">View</f:facet>
+					<h:commandButton styleClass="w3-button w3-theme-l3" value="View"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Edit</f:facet>
+					<h:commandButton styleClass="w3-button w3-blue" value="Edit" action="#{staffByAdmin.toUpdateStaff(stf)}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Delete</f:facet>
+					<h:commandButton styleClass="w3-button w3-red" value="Delete" action="#{staffByAdmin.deleteStaff(stf)}"/>
+				</h:column>
+
+			</h:dataTable>
+		</h:form>
+	</ui:composition>
+</body>
+</html>

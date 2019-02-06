@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+
+<h:head>
+
+</h:head>
+
+<h:body>
+	<ui:composition>
+		<ui:repeat var="list" value="#{activityListParam}">
+			<div class="w3-theme-l3 w3-padding w3-card w3-margin-top">
+				<div class="w3-center">
+					<span class="fa fa-flag-checkered w3-xxlarge w3-center"></span><br />
+					<b> #{utilityBean.timeAgoFrom(list.activityDate)}</b>
+				</div>
+				<div>
+					<h:graphicImage library="images" name="#{list.photoUrl}"
+						styleClass="w3-image w3-margin-top" />
+					<p class="w3-justify">#{list.contents}</p>
+				</div>
+			</div>
+		</ui:repeat>
+		<h:form class="w3-padding w3-margin-top" rendered="#{show}">
+			<h:commandButton
+				action="#{sessionBean.decreseActivityPaginationPoint(10)}"
+				value="Previous" styleClass="w3-btn w3-left w3-theme"
+				rendered="#{sessionBean.activityPaginationPoint gt 1}" />
+			<h:commandButton
+				action="#{sessionBean.increseActivityPaginationPoint(10)}"
+				value="Next" styleClass="w3-btn w3-right w3-theme"
+				rendered="#{activityListParam.size() gt 9}" />
+		</h:form>
+	</ui:composition>
+</h:body>
+</html>

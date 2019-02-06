@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+	<ui:composition template="/staffLayout/timelineTemplate.xhtml">
+		<ui:define name="leftLayout">
+			<ui:include src="/staffComponent/smallStaffList.xhtml">
+				<ui:param name="title"
+					value="#{groupBean.visitingStaffGroup.staffs.size()} Members" />
+				<ui:param name="staffListParam"
+					value="#{groupBean.visitingStaffGroup.staffs}" />
+				<ui:param name="show" value="false" />
+			</ui:include>
+		</ui:define>
+		<ui:define name="content">
+			<ui:include src="/staffComponent/post.xhtml">
+				<ui:param name="postListParam"
+					value="#{postBean.getPostByGroup(groupBean.visitingStaffGroup)}" />
+				<ui:param name="showStafGroupPostPaginaion" value="true" />
+			</ui:include>
+		</ui:define>
+		<ui:define name="rightLayout">
+			<div class="w3-col l4 m4 s12 w3-padding w3-theme w3-card-2">
+				<ui:include src="/staffComponent/addGroupPost.xhtml" />
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

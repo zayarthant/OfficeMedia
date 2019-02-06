@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+</h:head>
+<body>
+	<ui:composition template="/staffLayout/genericTemplate.xhtml">
+		<ui:define name="wapContent">
+			<ui:include src="/staffComponent/profileInformation.xhtml">
+				<ui:param name="staff" value="#{staffBean.staffInProfile}" />
+			</ui:include>
+			<div class="w3-col l6 m6 s12 w3-padding">
+				<ui:include src="/staffComponent/post.xhtml">
+					<ui:param name="postListParam"
+						value="#{postBean.getPostByStaff(staffBean.staffInProfile)}" />
+					<ui:param name="showProfilePagination" value="true" />
+				</ui:include>
+			</div>
+			<ui:include src="/staffComponent/profileGroupList.xhtml">
+				<ui:param name="staff" value="#{staffBean.staffInProfile}" />
+			</ui:include>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

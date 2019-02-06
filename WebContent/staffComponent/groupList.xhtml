@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:n="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head></h:head>
+<h:body>
+	<ui:composition>
+		<div class="w3-padding w3-row w3-border-top">
+			<ui:repeat var="group" value="#{groupList}">
+				<div class="w3-col w3-third w3-padding">
+					<div class="w3-row w3-card w3-padding">
+						<h:graphicImage name="#{group.groupphotoUrl}" library="images"
+							styleClass="w3-circle w3-image w3-col m5 l5 s5" />
+
+						<h:form rendered="#{!visible}">
+							<p class="w3-col m7 l7 s7 w3-padding">
+								<b><h:commandLink action="#{groupBean.viewGroup(group)}"
+										value="#{group.groupName}" /></b><br /> 
+							</p>
+						</h:form>
+
+						<h:form rendered="#{visible}">
+							<p class="w3-col m7 l7 s7 w3-padding">
+								<b>#{group.groupName}</b><br /> 
+								<h:commandLink value=" JOIN"
+									action="#{groupBean.joinGroup(group)}"
+									styleClass="w3-btn w3-theme-d3 fa fa-plus w3-margin-top" />
+							</p>
+						</h:form>
+
+					</div>
+				</div>
+			</ui:repeat>
+		</div>
+	</ui:composition>
+</h:body>
+</html>

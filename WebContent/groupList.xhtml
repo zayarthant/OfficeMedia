@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+	<ui:composition template="/staffLayout/genericTemplate.xhtml">
+		<ui:define name="wapContent">
+			<div class="w3-col l12 m12 s12 w3-padding">
+				<h:graphicImage library="images" name="gp-corver-image.jpg"
+					styleClass="w3-image" />
+				<p class="w3-center w3-text-red w3-xxlarge royal-beautiful">Alone
+					We Can Do SO Little; Together We Can Do So Much.</p>
+				<p class="w3-large w3-text-theme">Enrolled Group</p>
+
+				<ui:include src="/staffComponent/groupList.xhtml">
+					<ui:param name="groupList"
+						value="#{applicationUserSession.loginStaff.staffGroups}" />
+					<ui:param name="visible" value="false" />
+				</ui:include>
+
+				<p class="w3-large w3-text-theme">Suggested Group</p>
+				<ui:include src="/staffComponent/groupList.xhtml">
+					<ui:param name="groupList" value="#{groupBean.suggestGroup}" />
+					<ui:param name="visible" value="true" />
+				</ui:include>
+				<h:form class="w3-padding w3-margin-top">
+					<h:commandButton
+						action="#{sessionBean.decreseStaffGroupListPaginationPoint(9)}"
+						value="Previous" styleClass="w3-btn w3-left w3-theme"
+						rendered="#{sessionBean.staffGroupListPaginationPoint gt 1}" />
+					<h:commandButton
+						action="#{sessionBean.increseStaffGroupListPaginationPoint(9)}"
+						value="Next" styleClass="w3-btn w3-right w3-theme" />
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

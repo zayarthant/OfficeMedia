@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+	<ui:composition>
+		<ui:repeat var="votingList" value="#{votingListParam}">
+			<div class="w3-theme-l3 w3-padding w3-card w3-margin-top">
+				<div class="w3-center">
+					<span class="fa fa fa-check w3-xxlarge w3-center"></span><br /> <b
+						class="w3-small"> #{utilityBean.timeAgoFrom(votingList.postDate)}</b>
+				</div>
+				<p class="w3-justify">#{votingList.contents}</p>
+				<div>
+					<h:form class="w3-border-top w3-padding-small w3-row">
+						<ui:repeat var="votingOptionList"
+							value="#{votingList.voteOptions}">
+							<p class="w3-col l10 m10 s9">
+								#{votingOptionList.optionName} <span
+									class="w3-tag w3-right w3-margin-right w3-blue">
+									#{votingOptionList.votingCount}</span>
+							</p>
+							<h:commandLink action="#{votingBean.vote(votingOptionList)}"
+								class="w3-col l2 m2 s3 w3-input #{votingBean.isVoted(votingOptionList)?'w3-theme-d4':'w3-theme-l4'} w3-right margin-top-8 w3-center">
+								<f:ajax render="@form" execute="@form" />
+								<span class="fa fa fa-check"></span>
+							</h:commandLink>
+						</ui:repeat>
+					</h:form>
+				</div>
+			</div>
+		</ui:repeat>
+		<h:form class="w3-padding w3-margin-top" rendered="#{show}">
+			<h:commandButton
+				action="#{sessionBean.decreseVotingPaginationPoint(10)}"
+				value="Previous" styleClass="w3-btn w3-left w3-theme"
+				rendered="#{sessionBean.votingPaginationPoint gt 1}" />
+			<h:commandButton
+				action="#{sessionBean.increseVotingPaginationPoint(10)}"
+				value="Next" styleClass="w3-btn w3-right w3-theme"
+				rendered="#{votingListParam.size() gt 9}" />
+		</h:form>
+	</ui:composition>
+</h:body>
+</html>

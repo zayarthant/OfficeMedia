@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:n="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head></h:head>
+<h:body>
+	<ui:composition>
+		<ui:repeat var="postList" value="#{postListParam}">
+			<div class="w3-theme-l3 w3-padding w3-card w3-margin-top">
+				<div class="w3-row">
+					<div class="w3-col l1 m2 s2">
+						<h:graphicImage library="images"
+							name="#{postList.staff.profileimageUrl}"
+							styleClass="w3-circle w3-image w3-margin-top" />
+					</div>
+					<div class="w3-col l11 m10 s10 w3-padding">
+						<h:form styleClass="w3-margin-top">
+							<b> <h:commandLink
+									action="#{staffBean.viewProfile(postList.staff)}"
+									value="#{postList.staff.name}" /> <h:commandLink
+									action="#{groupBean.viewGroup(postList.staffGroup)}"
+									rendered="#{null != postList.staffGroup}">
+									<span class="fa fa-anchor w3-text-theme"></span>
+									 #{postList.staffGroup.groupName}
+									</h:commandLink>
+							</b>
+							<h:panelGroup layout="block" class="w3-dropdown-hover w3-right"
+								rendered="#{applicationUserSession.isLogined(postList.staff)}">
+								<span class="w3-text-blue"> <span
+									class="fa fa-ellipsis-v"> </span>
+								</span>
+								<div
+									class="w3-dropdown-content w3-bar-block w3-card w3-theme-l4">
+									<h:commandLink value="Edit" styleClass="w3-bar-item w3-button"
+										action="#{postBean.selectPostToEdit(postList)}" />
+									<h:commandLink value="Delete"
+										styleClass="w3-bar-item w3-button"
+										action="#{postBean.deletePost(postList)}" />
+								</div>
+							</h:panelGroup>
+						</h:form>
+						<span class="w3-small">#{utilityBean.timeAgoFrom(postList.postDate)}</span>
+					</div>
+				</div>
+				<div>
+					<p class="w3-justify">#{postList.contents}</p>
+					<h:graphicImage library="images" name="#{postList.photoUrl}"
+						styleClass="w3-image post-image" />
+				</div>
+				<h:form>
+					<div class="w3-padding">
+						<span class="w3-text-red fa fa-heart w3-margin-right">
+							#{postList.loveCount}</span>
+					</div>
+					<div class="w3-padding w3-row w3-border-top">
+						<h:commandLink class="w3-half w3-center linkablity"
+							action="#{postBean.likePost(postList)}">
+							<span
+								class="#{postBean.liked(postList)?'w3-text-red':'w3-text-white'} fa fa-heart"></span> Love
+							<f:ajax render="@form" execute="@form" />
+						</h:commandLink>
+						<div class="w3-half w3-center linkablity"
+							onclick="toggle('#{postList.id}-postcomment')">
+							<span class="fa fa-comments w3-text-green"></span> Comment
+						</div>
+					</div>
+				</h:form>
+				<div class="w3-hide" id="#{postList.id}-postcomment">
+					<h:form>
+						<ui:repeat var="commentsList" value="#{postList.comments}">
+							<div class="w3-padding w3-row w3-border-top">
+								<div class="w3-col l1 m2 s2">
+									<h:graphicImage library="images"
+										styleClass="w3-circle w3-image w3-margin-top"
+										name="#{postcommentsList.staff.profileimageUrl}" />
+								</div>
+
+								<div class="w3-col l11 m10 s10 w3-padding">
+									<p>
+										<b><h:commandLink
+												action="#{staffBean.viewProfile(commentsList.staff)}"
+												value="#{commentsList.staff.name}" /> </b>
+										<h:commandLink value="Delete"
+											styleClass="w3-text-red w3-small w3-right w3-margin-left"
+											rendered="#{applicationUserSession.isLogined(commentsList.staff)}"
+											action="#{postBean.deleteComment(commentsList)}">
+											<f:ajax execute="@this" render="@form" />
+										</h:commandLink>
+										<i class="w3-small w3-right"> <b>#{utilityBean.timeAgoFrom(commentsList.commentDate)}
+										</b>
+										</i>
+									</p>
+									<p class="w3-justify">#{commentsList.contents}</p>
+								</div>
+							</div>
+						</ui:repeat>
+						<div class="w3-row w3-border w3-padding-small">
+							<h:inputText value="#{postBean.comment}"
+								styleClass="w3-col l10 m10 s10 w3-input" type="text"
+								n:placeholder="Write Comment..." required="true" />
+							<h:commandLink value="Ment"
+								action="#{postBean.saveComment(postList)}"
+								styleClass="w3-col l2 m2 s2 w3-input w3-theme-d4 w3-right">
+								<f:ajax execute="@form" render="@form" />
+								<span class=" fa fa-paper-plane"></span>
+							</h:commandLink>
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</ui:repeat>
+		<h:form class="w3-padding w3-margin-top"
+			rendered="#{showPagePagination}">
+			<h:commandButton
+				action="#{sessionBean.decresePagePaginationPoint(10)}"
+				value="Previous" styleClass="w3-btn w3-left w3-theme"
+				rendered="#{sessionBean.pagePaginationPoint gt 1}" />
+			<h:commandButton
+				action="#{sessionBean.incresePagePaginationPoint(10)}" value="Next"
+				styleClass="w3-btn w3-right w3-theme"
+				rendered="#{postListParam.size() gt 9}" />
+		</h:form>
+		<h:form class="w3-padding w3-margin-top"
+			rendered="#{showProfilePagination}">
+			<h:commandButton
+				action="#{sessionBean.decreseProfilePaginationPoint(10)}"
+				value="Previous" styleClass="w3-btn w3-left w3-theme"
+				rendered="#{sessionBean.profilePaginationPoint gt 1}" />
+			<h:commandButton
+				action="#{sessionBean.increseProfilePaginationPoint(10)}"
+				value="Next" styleClass="w3-btn w3-right w3-theme"
+				rendered="#{postListParam.size() gt 9}" />
+		</h:form>
+		<h:form class="w3-padding w3-margin-top"
+			rendered="#{showStafGroupPostPaginaion}">
+			<h:commandButton
+				action="#{sessionBean.decreseStaffGroupPostPaginationPoint(10)}"
+				value="Previous" styleClass="w3-btn w3-left w3-theme"
+				rendered="#{sessionBean.staffGroupPostPaginationPoint gt 1}" />
+			<h:commandButton
+				action="#{sessionBean.increseStaffGroupPostPaginationPoint(10)}"
+				value="Next" styleClass="w3-btn w3-right w3-theme"
+				rendered="#{postListParam.size() gt 9}" />
+		</h:form>
+	</ui:composition>
+</h:body>
+</html>

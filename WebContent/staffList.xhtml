@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+	<ui:composition template="/staffLayout/genericTemplate.xhtml">
+		<ui:define name="wapContent">
+			<div class="w3-container w3-row w3-padding">
+				<div class="w3-col l12 m12 s12 w3-padding">
+					<h:graphicImage library="images" name="employee-list.jpg"
+						class="w3-image w3-card" />
+					<p class="w3-center w3-text-red w3-xxlarge royal-beautiful">Imagine
+						with all your mind. Believe with all your heart. Achieve with all
+						our might.</p>
+				</div>
+				<ui:include src="/staffComponent/satffList.xhtml">
+					<ui:param name="staffListParam" value="#{staffBean.allStaffList}" />
+				</ui:include>
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

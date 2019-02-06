@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:n="http://xmlns.jcp.org/jsf/passthrough">
+
+<body>
+	<ui:composition>
+		<h:form class="w3-row" enctype="multipart/form-data">
+			<div class="w3-center w3-margin-bottom w3-border-bottom">
+				<h:graphicImage library="images"
+					name="#{groupBean.visitingStaffGroup.groupphotoUrl}"
+					styleClass="w3-image w3-circle group-profile" />
+				<div class="w3-large w3-padding">
+					#{groupBean.visitingStaffGroup.groupName}
+					<div class="w3-dropdown-hover w3-theme">
+						<span class="fa fa-gear w3-text-red"> </span>
+						<div class="w3-dropdown-content w3-bar-block w3-card w3-theme-l4">
+							<h:commandLink action="#{groupBean.leaveGroup()}"
+								styleClass="w3-bar-item w3-button w3-small">Leave Group</h:commandLink>
+						</div>
+					</div>
+				</div>
+			</div>
+			<h:inputTextarea class="w3-input" n:placeholder="Write Post..."
+				value="#{postBean.content}" />
+			<h:graphicImage library="images" name="#{postBean.imageUrl}"
+				styleClass="w3-image w3-margin-top" />
+			<div class="w3-row w3-margin-top">
+				<h:inputText
+					styleClass="w3-input w3-white File-Show w3-col m9 l9 s9"
+					disabled="disabled" n:placeholder="Post Image" />
+				<div
+					class="File-Upload w3-input w3-border-left w3-hover-theme w3-white w3-col m3 l3 s3">
+					<span class="fa fa-cloud-upload"> Choose</span>
+					<h:inputFile id="fileId" styleClass="upload" value="#{postBean.image}"
+						validator="imageValidator" />
+				</div>
+				<p>
+					<h:message for="fileId"/>
+				</p>
+			</div>
+			<h:commandButton value="Post"
+				action="#{postBean.addGroupPost(groupBean.visitingStaffGroup)}"
+				styleClass="w3-btn w3-block w3-theme-l3 w3-margin-top"
+				rendered="#{null eq sessionBean.postSelectedToEdit}" />
+			<h:commandButton value="Save Edit" action="#{postBean.editPost()}"
+				styleClass="w3-btn w3-block w3-theme-l3 w3-margin-top"
+				rendered="#{null ne sessionBean.postSelectedToEdit}" />
+		</h:form>
+	</ui:composition>
+</body>
+</html>

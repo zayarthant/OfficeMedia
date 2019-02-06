@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+	<ui:composition>
+		<div class="w3-padding w3-row">
+			<h:form>
+				<ui:repeat var="staffList" value="#{staffListParam}">
+					<h:commandLink action="#{staffBean.viewProfile(staffList)}">
+						<div class="w3-col w3-third w3-padding">
+							<div class="w3-row w3-card w3-padding">
+								<h:graphicImage library="images"
+									name="#{staffList.profileimageUrl}"
+									styleClass="w3-circle w3-image w3-col m4 l4 s4" />
+								<p class="w3-col m8 l8 s8 w3-padding">
+									<span><b>#{staffList.name}</b></span> <br /> <span>#{staffList.position}</span><br />
+									<span>#{staffList.department}</span>
+								</p>
+							</div>
+						</div>
+					</h:commandLink>
+				</ui:repeat>
+			</h:form>
+		</div>
+	</ui:composition>
+</body>
+</html>

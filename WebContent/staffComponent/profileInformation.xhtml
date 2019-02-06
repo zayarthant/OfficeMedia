@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:n="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head></h:head>
+<h:body>
+	<ui:composition>
+		<div class="w3-col l3 m3 s12 w3-padding w3-card-2">
+			<div class="w3-center w3-margin-bottom">
+				<h:graphicImage library="images" name="#{staff.profileimageUrl}"
+					styleClass="w3-image w3-circle group-profile" />
+				<p class="w3-large w3-padding-small">#{staff.name}</p>
+			</div>
+			<p class="w3-center w3-border w3-theme-l3">
+				<i><b>#{staff.quote}</b></i>
+			</p>
+			<p>
+				ID : <i>#{staff.staffId}</i>
+			</p>
+			<p>
+				Position : <i>#{staff.position}</i>
+			</p>
+			<p>
+				Department : <i>#{staff.department}</i>
+			</p>
+			<p>
+				Start Date : <i>#{utilityBean.formatDate(staff.startEmployDate)}</i>
+			</p>
+			<p>
+				Birthday : <i>#{utilityBean.formatDayMonth(staff.dateOfBirth)}</i>
+			</p>
+			<p>
+				Phone : <i>#{staff.phone}</i>
+			</p>
+			<p>
+				Email : <i>#{staff.email}</i>
+			</p>
+		</div>
+	</ui:composition>
+</h:body>
+</html>

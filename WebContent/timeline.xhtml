@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+	<ui:composition template="/staffLayout/timelineTemplate.xhtml">
+		<ui:define name="content">
+			<h:panelGroup layout="block"
+				rendered="#{sessionBean.pagePaginationPoint lt 10}">
+				<ui:include src="/staffComponent/birthday.xhtml">
+					<ui:param name="birthdayListParam"
+						value="#{birthdayBean.birthdayOnThisDay}" />
+				</ui:include>
+				<ui:include src="/staffComponent/activity.xhtml">
+					<ui:param name="activityListParam"
+						value="#{activityBean.getRecentActivity()}" />
+					<ui:param name="show" value="false" />
+				</ui:include>
+				<ui:include src="/staffComponent/voting.xhtml">
+					<ui:param name="votingListParam" value="#{votingBean.recentVoting}" />
+					<ui:param name="show" value="false" />
+				</ui:include>
+			</h:panelGroup>
+			<ui:include src="/staffComponent/post.xhtml">
+				<ui:param name="postListParam" value="#{postBean.getAll()}" />
+				<ui:param name="showPagePagination" value="true" />
+			</ui:include>
+		</ui:define>
+		<ui:define name="rightLayout">
+			<div class="w3-col l4 m4 s12 w3-padding w3-theme w3-card-2">
+				<ui:include src="/staffComponent/addPost.xhtml" />
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:n="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head></h:head>
+<h:body>
+	<ui:composition>
+		<ui:repeat var="list" value="#{birthdayListParam}">
+			<div class="w3-theme-l3 w3-padding w3-card w3-margin-top">
+				<h:form styleClass="w3-center w3-text-pink">
+					<span class="fa fa-birthday-cake w3-xxlarge w3-center"></span>
+					<br />
+					<b>!!! Happy Birthday !!!</b>
+					<br />
+					<i class="">#{utilityBean.formatDayMonth(list.staff.dateOfBirth)}</i>
+					<br />
+					<i class="w3-large birthday-color"><h:commandLink
+							action="#{staffBean.viewProfile(list.staff)}"
+							value="#{list.staff.name}" /></i>
+					<br />
+				</h:form>
+				<div class="w3-row w3-margin-bottom">
+					<h:graphicImage library="images" name="#{list.photoUrl}"
+						styleClass="w3-image w3-col l4 m4 s5" />
+					<p class="w3-justify w3-padding-small w3-col l8 m8 s7">
+						#{list.contents}</p>
+				</div>
+				<button class="w3-btn w3-block w3-theme-d4"
+					onclick="toggle('#{list.id}-birthdayWish')">Wish</button>
+
+				<div class="w3-hide" id="#{list.id}-birthdayWish">
+					<h:form>
+						<ui:repeat var="commentsList" value="#{list.wishComments}">
+							<div class="w3-border-top w3-margin-top">
+								<div class="w3-row w3-border-top">
+									<div class="w3-col l1 m2 s2">
+										<h:graphicImage library="images"
+											name="#{commentsList.staff.profileimageUrl}"
+											styleClass="w3-circle w3-image w3-margin-top" />
+									</div>
+									<div class="w3-col l11 m10 s10 w3-padding">
+										<p class="">
+											<b><h:commandLink
+													action="#{staffBean.viewProfile(commentsList.staff)}"
+													value="#{commentsList.staff.name}" /></b> <i
+												class="w3-small w3-right"> <b>
+													#{utilityBean.timeAgoFrom(commentsList.commentDate)} </b> <h:commandLink
+													value="Delete" styleClass="w3-text-red w3-margin-left"
+													rendered="#{applicationUserSession.isLogined(commentsList.staff)}"
+													action="#{birthdayBean.deleteComment(commentsList)}">
+													<f:ajax execute="@this" render="@form" />
+												</h:commandLink>
+											</i>
+										</p>
+										<p>#{commentsList.contents}</p>
+									</div>
+								</div>
+							</div>
+						</ui:repeat>
+
+
+						<div class="w3-row w3-border w3-padding-small">
+							<h:inputText styleClass="w3-col l10 m10 s10 w3-input"
+								value="#{birthdayBean.wishComment}" n:placeholder="Wish..."
+								required="true" n:required="true" />
+							<h:commandLink
+								styleClass="w3-col l2 m2 s2 w3-input w3-theme-d4 w3-right"
+								action="#{birthdayBean.saveComment(list)}">
+								<f:ajax execute="@form" render="@form" />
+								<span class=" fa fa-birthday-cake"></span> Wish
+ 						</h:commandLink>
+						</div>
+
+					</h:form>
+				</div>
+			</div>
+		</ui:repeat>
+	</ui:composition>
+</h:body>
+</html>

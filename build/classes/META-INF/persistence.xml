@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="TheOfficeMedia"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<class>com.office.media.entity.Activity</class>
+		<class>com.office.media.entity.Birthday</class>
+		<class>com.office.media.entity.Comment</class>
+		<class>com.office.media.entity.Post</class>
+		<class>com.office.media.entity.Role</class>
+		<class>com.office.media.entity.Staff</class>
+		<class>com.office.media.entity.StaffGroup</class>
+		<class>com.office.media.entity.VoteOption</class>
+		<class>com.office.media.entity.Voting</class>
+		<class>com.office.media.entity.WishComment</class>
+		<class>com.office.media.entity.AComent</class>
+		<properties>
+			<property name="javax.persistence.jdbc.driver"
+				value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+			<property name="javax.persistence.jdbc.user" value="sa" />
+			<property name="javax.persistence.jdbc.password"
+				value="123@ace" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:sqlserver://192.168.11.32:1433;databaseName=OfficeMedia" />
+
+			<property name="eclipselink.orm.throw.exceptions"
+				value="true" />
+			<property name="eclipselink.orm.throw.exceptions"
+				value="true" />
+			<property name="eclipselink.flush-clear.cache" value="Drop" />
+			<property name="eclipselink.cache.size.default" value="5000" />
+			<property name="eclipselink.jdbc.cache-statements"
+				value="true" />
+			<property name="eclipselink.jdbc.cache-statements.size"
+				value="100" />
+			<property name="eclipselink.target-database"
+				value="org.eclipse.persistence.platform.database.SQLServerPlatform" />
+			<property name="eclipselink.weaving" value="false" />
+			<property name="eclipselink.create-ddl-jdbc-file-name"
+				value="createDDL_ddlGeneration.jdbc" />
+			<property name="eclipselink.drop-ddl-jdbc-file-name"
+				value="dropDDL_ddlGeneration.jdbc" />
+			<property name="eclipselink.ddl-generation.output-mode"
+				value="both" />
+
+
+		</properties>
+	</persistence-unit>
+</persistence>

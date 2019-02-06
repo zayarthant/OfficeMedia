@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+	<ui:composition>
+		<div class="w3-col l3 m3 s12 w3-padding w3-theme w3-card-2">
+			<div>
+				<p>Groups</p>
+				<div class="w3-margin-bottom">
+					<ui:repeat var="list" value="#{staff.staffGroups}">
+						<span class="w3-tag w3-theme-d3 w3-margin-top">#{list.groupName}</span>
+					</ui:repeat>
+				</div>
+			</div>
+			<h:form rendered="#{applicationUserSession.isLogined(staff)}">
+				<h:commandLink styleClass="fa fa-cog" action="profileSetting"> Account Setting</h:commandLink>
+			</h:form>
+		</div>
+	</ui:composition>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:n="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+</h:head>
+<body>
+	<ui:composition template="/staffLayout/genericTemplate.xhtml">
+		<ui:define name="wapContent">
+			<ui:include src="/staffComponent/staffList.xhtml">
+				<ui:param name="staffListParam" value="#{staffBean.searchResult}" />
+			</ui:include>
+			<ui:include src="/staffComponent/activity.xhtml">
+				<ui:param name="activityListParam"
+					value="#{activityBean.searchResult}" />
+				<ui:param name="show" value="false" />
+			</ui:include>
+			<ui:include src="/staffComponent/post.xhtml">
+				<ui:param name="postListParam" value="#{postBean.getAll()}" />
+				<ui:param name="showPagePagination" value="false" />
+			</ui:include>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

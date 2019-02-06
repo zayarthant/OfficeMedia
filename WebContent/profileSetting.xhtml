@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:n="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+</h:head>
+<body>
+	<ui:composition template="/staffLayout/genericTemplate.xhtml">
+		<ui:define name="wapContent">
+			<div class="w3-margin-top">
+				<div class="w3-row w3-card-4">
+					<div class="w3-col l7 m7 s12 w3-padding w3-border-right">
+						<p class="w3-xlarge">
+							<span class="fa fa-pencil"> </span> Edit Profile
+						</p>
+						<h:form id="editInfo">
+							<i>Position*</i>
+							<div class="w3-row w3-margin-bottom">
+								<div class="w3-col l6 m6 s12">
+									<h:inputText id="position"
+										value="#{applicationUserSession.loginStaff.position}"
+										required="true"
+										requiredMessage="* Position Filed Is Required."
+										styleClass="w3-input w3-border" />
+								</div>
+								<div class="w3-padding w3-col l6 m6 s12 w3-text-red">
+									<h:message for="position" />
+								</div>
+							</div>
+							<i>Department*</i>
+							<div class="w3-row w3-margin-bottom">
+								<div class="w3-col l6 m6 s12">
+									<h:inputText id="department"
+										value="#{applicationUserSession.loginStaff.department}"
+										required="true"
+										requiredMessage="* Department Filed Is Required."
+										styleClass="w3-input w3-border" />
+								</div>
+								<div class="w3-padding w3-col l6 m6 s12 w3-text-red">
+									<h:message for="department" />
+								</div>
+							</div>
+							<i>Phone*</i>
+							<div class="w3-row w3-margin-bottom">
+								<div class="w3-col l6 m6 s12">
+									<h:inputText id="phone"
+										value="#{applicationUserSession.loginStaff.phone}"
+										required="true" requiredMessage="* Phone Number Is Required."
+										styleClass="w3-input w3-border" validator="phoneValidator"/>
+								</div>
+								<div class="w3-padding w3-col l6 m6 s12 w3-text-red">
+									<h:message for="phone" />
+								</div>
+							</div>
+							<i>Email*</i>
+							<div class="w3-row w3-margin-bottom">
+								<div class="w3-col l6 m6 s12">
+									<h:inputText id="email"
+										value="#{applicationUserSession.loginStaff.email}"
+										required="true" requiredMessage="* Email Is Required."
+										styleClass="w3-input w3-border" validator="emailValidator" />
+								</div>
+								<div class="w3-padding w3-col l6 m6 s12 w3-text-red">
+									<h:message for="email" />
+								</div>
+							</div>
+							<i>Quote*</i>
+							<div class="w3-row w3-margin-bottom">
+								<div class="w3-col l6 m6 s12">
+									<h:inputTextarea
+										value="#{applicationUserSession.loginStaff.quote}"
+										styleClass="w3-input w3-border" />
+								</div>
+								<div class="w3-padding w3-col l6 m6 s12 w3-text-red"></div>
+							</div>
+							<div class="w3-row">
+								<div class="w3-col l6 m6 s12 w3-center">
+									<h:commandLink
+										action="#{staffBean.saveEditedProfileInformation()}"
+										styleClass="w3-btn w3-theme "> Save Change</h:commandLink>
+								</div>
+								<div class="w3-padding w3-col l6 m6 s12 w3-text-green">
+									<h:outputText id="successOutput" />
+									<h:message for="successOutput" />
+								</div>
+							</div>
+						</h:form>
+					</div>
+					<div class="w3-col l5 m5 s12 w3-padding">
+						<p class="w3-xlarge">
+							<span class="fa fa-lock"> </span> Change Password
+						</p>
+						<h:form id="passEdit">
+							<i>Current Password*</i>
+							<div class="w3-row  w3-margin-bottom">
+								<div class="w3-col l6 m6 s12">
+									<h:inputSecret id="oldpassword"
+										value="#{staffBean.oldPassword}" required="true"
+										requiredMessage="* Current password Is Required."
+										styleClass="w3-input w3-border" />
+								</div>
+								<div class="w3-padding w3-col l6 m6 s12 w3-text-red">
+									<h:message for="oldpassword" />
+								</div>
+							</div>
+							<i>New Password*</i>
+							<div class="w3-row w3-margin-bottom">
+								<div class="w3-col l6 m6 s12">
+									<h:inputSecret id="newpassword"
+										value="#{staffBean.newPassword}" required="true"
+										requiredMessage="* Please Enter New Password"
+										styleClass="w3-input w3-border" />
+								</div>
+								<div class="w3-padding w3-col l6 m6 s12 w3-text-red">
+									<h:message for="newpassword" />
+								</div>
+							</div>
+							<i>Confirm Password*</i>
+							<div class="w3-row  w3-margin-bottom">
+								<div class="w3-col l6 m6 s12">
+									<h:inputSecret id="confirmpassword"
+										styleClass="w3-input w3-border" required="true"
+										requiredMessage="* Please Enter Confirmation."
+										value="#{staffBean.confirmPassword}" />
+								</div>
+								<div class="w3-padding w3-col l6 m6 s12 w3-text-red">
+									<h:message for="confirmpassword" />
+								</div>
+							</div>
+							<div class="w3-row">
+								<div class="w3-col l6 m6 s12 w3-center">
+									<h:commandLink action="#{staffBean.changedPassword()}"
+										styleClass="w3-btn w3-theme">Change</h:commandLink>
+								</div>
+								<div class="w3-padding w3-col l6 m6 s12 w3-text-green">
+									<h:outputText id="successOutput" />
+									<h:message for="successOutput" />
+								</div>
+							</div>
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>
